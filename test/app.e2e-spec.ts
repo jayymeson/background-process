@@ -11,7 +11,7 @@ describe('UserController (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
-
+    //teste
     app = moduleFixture.createNestApplication();
     await app.init();
   });
