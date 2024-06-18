@@ -10,11 +10,17 @@ COPY package*.json ./
 # Instalar as dependências do aplicativo
 RUN npm install
 
+# Instalar o NestJS CLI localmente
+RUN npm install @nestjs/cli
+
 # Copiar os templates de email para o contêiner
 COPY src/shared/mail/templates ./src/shared/mail/templates
 
 # Copiar o restante dos arquivos do aplicativo para o contêiner
 COPY . .
+
+# Ajustar permissões para evitar problemas de permissão
+RUN chmod +x node_modules/.bin/nest
 
 # Compilar o aplicativo TypeScript
 RUN npm run build
