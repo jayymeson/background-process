@@ -13,7 +13,7 @@ RUN npm install
 # Instalar o NestJS CLI localmente
 RUN npm install @nestjs/cli
 
-# Copia os templates de e-mail para o diretório de destino
+# Copia os templates de e-mail para o diretório de destin
 RUN mkdir -p dist/shared/mail/templates
 COPY src/shared/mail/templates /usr/src/app/dist/shared/mail/templates
 
