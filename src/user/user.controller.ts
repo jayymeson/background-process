@@ -8,14 +8,12 @@ export class UserController {
 
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
-    // Log para depuração
-    console.log('Recebendo requisição para criar usuário:', createUserDto);
+    console.log('Receiving request to create user:', createUserDto);
 
     // Add user creation request to the queue
     await this.userService.addUserToQueue(createUserDto);
 
-    // Log para depuração
-    console.log('Requisição adicionada à fila');
+    console.log('Request added to the queue');
 
     // Return in_progress message
     return { message: 'User creation in progress' };

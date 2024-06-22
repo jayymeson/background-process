@@ -12,18 +12,10 @@ export class UserProcessor {
 
   @Process('create-user')
   async handleCreateUser(job: Job) {
-    try {
-      // Create the user
-      const user = await this.userService.createUser(job.data);
+    // Create the user
+    const user = await this.userService.createUser(job.data);
 
-      // Notify user on success
-      await this.mailService.sendUserCreationSuccess(user.email, user.name);
-    } catch (error) {
-      // Notify user on failure
-      await this.mailService.sendUserCreationError(
-        job.data.email,
-        job.data.name,
-      );
-    }
+    // Notify user on success
+    await this.mailService.sendUserCreationSuccess(user.email, user.name);
   }
 }

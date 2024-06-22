@@ -11,10 +11,12 @@ let userIdCounter = 1;
 export class UserService {
   constructor(@InjectQueue('user-queue') private userQueue: Queue) {}
 
+  // Add user creation request to the queue
   async addUserToQueue(createUserDto: CreateUserDto) {
     await this.userQueue.add('create-user', createUserDto);
   }
 
+  // Create a new user
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     const newUserId = userIdCounter++;
 

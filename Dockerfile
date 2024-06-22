@@ -13,10 +13,6 @@ RUN npm install
 # Instalar o NestJS CLI localmente
 RUN npm install @nestjs/cli
 
-# Copia os templates de e-mail para o diretório de destin
-RUN mkdir -p dist/shared/mail/templates
-COPY src/shared/mail/templates /usr/src/app/dist/shared/mail/templates
-
 # Copiar o restante dos arquivos do aplicativo para o contêiner
 COPY . .
 
@@ -25,6 +21,15 @@ RUN chmod +x node_modules/.bin/nest
 
 # Compilar o aplicativo TypeScript
 RUN npm run build
+
+# Certifique-se de criar o diretório de destino para os templates
+RUN mkdir -p ./dist/shared/mail/templates
+
+# Certifique-se de copiar os templates para o diretório dist
+COPY ./src/shared/mail/templates ./dist/shared/mail/templates/
+
+# Listar o conteúdo do diretório dist para verificação
+RUN ls -la ./dist/shared/mail/templates
 
 # Expor a porta que a aplicação irá rodar
 EXPOSE 3000

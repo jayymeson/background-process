@@ -5,7 +5,7 @@ import { Module, Global } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MailService } from './mail.service';
 
-const templatesDir = join(__dirname, 'shared', 'mail', 'templates');
+const templatesDir = join(__dirname, '..', 'mail', 'templates');
 console.log('Templates Directory:', templatesDir);
 
 @Global()

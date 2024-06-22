@@ -6,22 +6,19 @@ import { Queue } from 'bull';
 export class QueueService {
   constructor(@InjectQueue('user-queue') private userQueue: Queue) {}
 
+  // Add a job to the specified queue
   async addJob(queueName: string, jobName: string, data: any): Promise<void> {
-    // Add a job to the specified queue
     const queue = this.getQueueByName(queueName);
     if (queue) {
       await queue.add(jobName, data);
-
-      // Log para depuração
-      console.log('Job adicionado à fila:', queueName, jobName, data);
+      console.log('Job added to queue:', queueName, jobName, data);
     } else {
-      // Log para depuração
-      console.error('Fila não encontrada:', queueName);
+      console.error('Queue not found:', queueName);
     }
   }
 
+  // Get the status of a job by its ID
   async getJobStatus(queueName: string, jobId: string): Promise<any> {
-    // Get the status of a job by its ID
     const queue = this.getQueueByName(queueName);
     if (queue) {
       const job = await queue.getJob(jobId);
@@ -39,8 +36,8 @@ export class QueueService {
     return null;
   }
 
-  private getQueueByName(queueName: string): Queue {
-    // Retrieve the queue by its name
+  // Retrieve the queue by its name
+  private getQueueByName(queueName: string): Queue | null {
     if (queueName === 'user-queue') {
       return this.userQueue;
     }
